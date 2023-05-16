@@ -1,4 +1,5 @@
 #include "shell.h"
+
 /**
  * execute - execute a command using its complete path and variables.
  * @input: a pointer to the program's data structure.
