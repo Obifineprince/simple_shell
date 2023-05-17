@@ -91,5 +91,11 @@ int print_alias(shell_program *input, char *alias);
 char *get_alias(shell_program *input, char *alias);
 int set_alias(char *alias_string, shell_program *input);
 
+int interactive(info_t *info);
+int is_delim(char c, char *delim)
+int _isalpha(int c)
+int _atoi(char *s)
+
+
 #endif /* SHELL_H */
 
