@@ -16,7 +16,7 @@ int builtin_env(shell_program *input)
 		print_environ(input);
 	else
 	{
-		for (j = 0; input->tokens[1][j]; J++)
+		for (j = 0; input->tokens[1][j]; j++)
 		{/* Checks if a character '=' exists */
 			if (input->tokens[1][j] == '=')
 		{
@@ -27,7 +27,7 @@ int builtin_env(shell_program *input)
 
 				/* display the environ */
 				print_environ(input);
-				if (env_get_key(spname, data) == NULL)
+				if (env_get_key(spname, input) == NULL)
 				{/* Prints the variable if it doesn’t exist in the environment */
 					_print(input->tokens[1]);
 					_print("\n");
