@@ -16,8 +16,9 @@
 #include "macros.h"
 
 /* Forward declaration of shell_program structure */
-typedef struct info
-{
+
+
+typedef struct info {
     char *program_name;
     char *input_line;
     char *command_name;
@@ -26,14 +27,13 @@ typedef struct info
     char **tokens;
     char **env;
     char **alias_list;
-} shell_program;
+}shell_program;
 
 typedef struct builtins
 {
-    char *builtin;
-    int (*function)(shell_program *input);
-} builtins;
-
+	char *builtin;
+	int (*function)(data_of_program *data);
+} builtins
 
 void initialize_data(shell_program *input, int argc, char *argv[], char **env);
 void sisifo(char *prompt, shell_program *input);
@@ -94,3 +94,4 @@ char *get_alias(shell_program *input, char *alias);
 int set_alias(char *alias_string, shell_program *input);
 
 #endif /* SHELL_H */
+
