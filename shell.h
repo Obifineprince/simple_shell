@@ -38,7 +38,7 @@ void sisifo(char *prompt, shell_program *input);
 void handle_ctrl_c(int opr UNUSED);
 
 int _getline(shell_program *input);
-int check_logic_ops(char *array_commands[], int i, char array_operators[]);
+int check_logic_ops(char *command_arrays[], int i, char opera_arr[]);
 
 void expand_variables(shell_program *input);
 void expand_alias(shell_program *input);
