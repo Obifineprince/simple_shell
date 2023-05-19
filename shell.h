@@ -44,8 +44,10 @@ void expand_variables(shell_program *input);
 void expand_alias(shell_program *input);
 int buffer_add(char *buffer, char *str_to_add);
 
-void tokenize(shell_program *input);
+void custom_tokenize(shell_program *input);
 char *_strtok(char *line, char *delim);
+void **tokenize(shell_program *input);
+
 
 int execute(shell_program *input);
 
@@ -54,9 +56,9 @@ int builtins_list(shell_program *input);
 char **tokenize_path(shell_program *input);
 int find_program(shell_program *input);
 
-void free_array_of_pointers(char **directories);
-void free_recurrent_data(shell_program *input);
-void free_all_data(shell_program *input);
+void free_pointers(char **directory);
+void free_recurrent(shell_program *input);
+void free_data(shell_program *input);
 
 int builtin_exit(shell_program *input);
 int builtin_cd(shell_program *input);
@@ -83,9 +85,9 @@ int str_compare(char *string1, char *string2, int number);
 char *str_concat(char *string1, char *string2);
 void str_reverse(char *string);
 
-void long_to_string(long number, char *string, int base);
-int _atoi(char *s);
-int count_characters(char *string, char *character);
+void long_string(long numb, char *str, int base);
+int _atoi(char *p);
+int count_char(char *str, char *character);
 
 int print_alias(shell_program *input, char *alias);
 char *get_alias(shell_program *input, char *alias);
