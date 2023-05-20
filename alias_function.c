@@ -13,7 +13,6 @@
  * or a non-zero number if there
  *  is an error or if the specified alias is not found.
  */
-
 int print_alias(shell_program *input, char *alias)
 {
 	int c, j, length_of_alias;
@@ -25,13 +24,13 @@ int print_alias(shell_program *input, char *alias)
 		for (c = 0; input->alias_list[c]; c++)
 		{
 			if (!alias || (str_compare(input->alias_list[c], alias, length_of_alias)
-			&& input->alias_list[c][length_of_alias] == '='))
+				&& input->alias_list[c][length_of_alias] == '='))
 			{
 				for (j = 0; input->alias_list[c][j]; j++)
 				{
 					buffer[j] = input->alias_list[c][j];
 					if (input->alias_list[c][j] == '=')
-					break;
+						break;
 				}
 				buffer[j + 1] = '\0';
 				buffer_add(buffer, "'");
@@ -59,14 +58,13 @@ int print_alias(shell_program *input, char *alias)
  * or a non-zero number if the alias
  * is not found or if there is an error.
  */
-
 char *get_alias(shell_program *input, char *name)
 {
 	int c, length_of_alias;
 
 	/* validate the arguments */
 	if (name == NULL || input->alias_list == NULL)
-		return (NULL);
+		return NULL;
 
 	length_of_alias = str_length(name);
 
@@ -75,13 +73,14 @@ char *get_alias(shell_program *input, char *name)
 		if (str_compare(name, input->alias_list[c], length_of_alias) &&
 			input->alias_list[c][length_of_alias] == '=')
 		{
-	/* Returns the value of the key "NAME=" when it is found */
+			/* Returns the value of the key "NAME=" when it is found */
 			return input->alias_list[c] + length_of_alias + 1;
 		}
 	}
 
 	return NULL;
 }
+
 /**
  * set_alias - Function for adding or overriding an alias
  * @alias_string: Alias to be set in the form (name='value')
@@ -96,7 +95,6 @@ char *get_alias(shell_program *input, char *name)
  * or a non-zero number if there is an error
  * or if the alias string is not in the correct format.
  */
-
 int set_alias(char *alias_string, shell_program *input)
 {
 	int c, j;
@@ -104,7 +102,7 @@ int set_alias(char *alias_string, shell_program *input)
 
 	/* Performs argument validation */
 	if (alias_string == NULL || input->alias_list == NULL)
-		return (1);
+		return 1;
 
 	/* Iterates through aliases to find the '=' character */
 	for (c = 0; alias_string[c]; c++)
@@ -113,19 +111,19 @@ int set_alias(char *alias_string, shell_program *input)
 			buffer[c] = alias_string[c];
 		else
 		{
-	/* Searches if the value of the alias is another alias */
+			/* Searches if the value of the alias is another alias */
 			temp = get_alias(input, alias_string + c + 1);
 			break;
 		}
 	}
 
-/* Iterates through the alias list & checks for match with variable name */
+	/* Iterates through the alias list & checks for match with variable name */
 	for (j = 0; input->alias_list[j]; j++)
 	{
 		if (str_compare(buffer, input->alias_list[j], c) &&
-		input->alias_list[j][c] == '=')
+			input->alias_list[j][c] == '=')
 		{
-	/* checks alias existence */
+			/* checks alias existence */
 			free(input->alias_list[j]);
 			break;
 		}
@@ -134,16 +132,17 @@ int set_alias(char *alias_string, shell_program *input)
 	/* add the alias */
 	if (temp)
 	{
-/* checks if alias is in existence */
+		/* checks if alias is in existence */
 		buffer_add(buffer, "=");
 		buffer_add(buffer, temp);
 		input->alias_list[j] = str_duplicate(buffer);
 	}
 	else
 	{
-/* checks if alias is not in existence */
+		/* checks if alias is not in existence */
 		input->alias_list[j] = str_duplicate(alias_string);
 	}
 
 	return 0;
 }
+

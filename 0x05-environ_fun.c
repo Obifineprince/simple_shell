@@ -7,7 +7,6 @@
  * Return: a pointer to the value of the variable,
  * or NULL if it doesn't exist
  */
-
 char *env_get_key(char *key, shell_program *input)
 {
 	int sp, length_of_key = 0;
@@ -21,15 +20,9 @@ char *env_get_key(char *key, shell_program *input)
 
 	for (sp = 0; input->env[sp]; sp++)
 	{
-/* Iterates through the environment variables 
- * and checks for a match with the specified name. */
 		if (str_compare(key, input->env[sp], length_of_key) &&
-		 input->env[sp][length_of_key] == '=')
+			input->env[sp][length_of_key] == '=')
 		{
-/* Retrieves the value of the environment variable
- * with the specified key (NAME=) and returns it.
- */
-
 			return (input->env[sp] + length_of_key + 1);
 		}
 	}
@@ -46,9 +39,6 @@ char *env_get_key(char *key, shell_program *input)
  * Return: 1 if any parameter is NULL,
  * 2 if there is an error, or 0 if successful
  */
-
-
-
 int env_set_key(char *key, char *value, input_program *input)
 {
 	int c, length_of_key = 0, new_key = 1;
@@ -57,18 +47,19 @@ int env_set_key(char *key, char *value, input_program *input)
 	if (key == NULL || value == NULL || input->env == NULL)
 		return (1);
 
-/* Obtain the length of the requested variable */
-	length_of _key = str_length(key);
+	/* Obtain the length of the requested variable */
+	length_of_key = str_length(key);
 
 	for (c = 0; input->env[c]; c++)
 	{
-/* Iterate through the environ and check for a matching name */
+		/* Iterate through the environ and check for a matching name */
 		if (str_compare(key, input->env[c], length_of_key) &&
-		 input->env[c][key_length_of_key] == '=')
-		{/* If existing */
+			input->env[c][length_of_key] == '=')
+		{
+			/* If existing */
 			new_key = 0;
-/* Free the entire variable, which was newly created */
-			free(input>env[c]);
+			/* Free the entire variable, which was newly created */
+			free(input->env[c]);
 			break;
 		}
 	}
@@ -78,10 +69,6 @@ int env_set_key(char *key, char *value, input_program *input)
 
 	if (new_key)
 	{
-/* If the variable is new, it is created at the end of
- * current list and we need to put the NULl
- *
- * value in the next position. */
 		input->env[c + 1] = NULL;
 	}
 	return (0);
@@ -101,16 +88,16 @@ int env_remove_key(char *key, shell_program *input)
 	if (key == NULL || input->env == NULL)
 		return (0);
 
-/*Retrieve the length of the requested variable*/
+	/* Retrieve the length of the requested variable */
 	length_of_key = str_length(key);
 
 	for (c = 0; input->env[c]; c++)
 	{
-/*Scan through the environ and look for matches wit specified key*/
+/* Scan through the environ and look for matches with specified key */
 		if (str_compare(key, input->env[c], length_of_key) &&
-		 input->env[c][length_of_key] == '=')
+			input->env[c][length_of_key] == '=')
 		{
-/* If the key already exists, remove it before setting*/
+		/* If the key already exists, remove it before setting */
 			free(input->env[c]);
 
 /* Shift the remaining keys one position down in the list */
@@ -119,14 +106,14 @@ int env_remove_key(char *key, shell_program *input)
 			{
 				input->env[c - 1] = input->env[c];
 			}
+
 /* Place the NULL value at the end of the list setting new value */
-			input->env[ - 1] = NULL;
+			input->env[c - 1] = NULL;
 			return (1);
 		}
 	}
 	return (0);
 }
-
 
 /**
  * print_environ - prints the current environ
@@ -143,3 +130,4 @@ void print_environ(shell_program *input)
 		_print("\n");
 	}
 }
+

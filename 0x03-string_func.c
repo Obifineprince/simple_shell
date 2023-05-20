@@ -3,7 +3,7 @@
 /**
  * long_string - Converts a number to a string.
  * @numb: The number to be converted into a string.
- * @stri: The buffer used to store the number as a string.
+ * @str: The buffer used to store the number as a string.
  * @base: The base used for the number conversion.
  *
  * Return: This function does not return a value.
@@ -17,7 +17,7 @@ void long_string(long numb, char *str, int base)
 	char letters[] = {"0123456789abcdef"};
 
 	if (cociente == 0)
-		stri[index++] = '0';
+		str[index++] = '0';
 
 	if (str[0] == '-')
 		inNegative = 1;

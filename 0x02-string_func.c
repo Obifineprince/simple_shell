@@ -1,8 +1,8 @@
-
 #include "shell.h"
 
 /**
- * free_recurrent - This function frees the fields that are needed for each loop
+ * free_recurrent - This function frees the
+ * fields that are needed for each loop
  *
  * @input: A struct containing the program's data
  *
@@ -24,7 +24,8 @@ void free_recurrent(shell_program *input)
 	input->tokens = NULL;
 }
 /**
- * free_data - This function frees all fields of the program's data
+ * free_data - This function frees all
+ * fields of the program's data
  *
  * @input: A struct containing the program's data
  *
@@ -45,7 +46,8 @@ void free_data(shell_program *input)
 }
 
 /**
- * free_pointers - This function frees each pointer of an array of pointers and the array itself
+ * free_pointers - This function frees each pointer of
+ * an array of pointers and the array itself
  *
  * @directory: An array of pointers
  *

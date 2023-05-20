@@ -1,8 +1,7 @@
-
 #include "shell.h"
 
 /**
- * is_interactive - checks if the shell is running in interactive mode
+ * interactive - checks if the shell is running in interactive mode
  * @info: pointer to the shell_program struct
  *
  * Return: 1 if running in interactive mode, 0 otherwise
@@ -14,14 +13,14 @@ int interactive(info_t *info)
 }
 
 /**
- * is_delimiter - checks if a character is a delimiter
+ * _delim - checks if a character is a delimiter
  * @c: the character to check
  * @delim: the delimiter string
  *
  * Return: 1 if the character is a delimiter, 0 otherwise
  */
 
-int is_delim(char c, char *delim)
+int _delim(char c, char *delim)
 {
 	while (*delim)
 		if (*delim++ == c)
@@ -30,14 +29,13 @@ int is_delim(char c, char *delim)
 }
 
 /**
- * is_alphabetic - checks if a character is alphabetic
+ * _alpha - checks if a character is alphabetic
  * @c: the character to check
  *
  * Return: 1 if the character is alphabetic, 0 otherwise
  */
 
-
-int _isalpha(int c)
+int _alpha(int c)
 {
 	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
 		return (1);
@@ -46,12 +44,11 @@ int _isalpha(int c)
 }
 
 /**
- * string_to_integer - converts a string to an integer
+ * _atoi - converts a string to an integer
  * @s: the string to be converted
  *
  * Return: the converted integer value, or 0 if no numbers in the string
  */
-
 
 int _atoi(char *s)
 {
