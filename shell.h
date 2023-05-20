@@ -33,9 +33,9 @@ typedef struct builtins
 	int (*function)(shell_program *input);
 } builtins;
 
-void initialize_data(shell_program *input, int argc, char *argv[], char **env);
-void sisifo(char *prompt, shell_program *input);
-void handle_ctrl_c(int opr UNUSED);
+void data_initialize(shell_program *input, int argc, char *argv[], char **env);
+void sisfo(char *prompt, shell_program *input);
+void ctrl_c_handle(int opr NTUSED);
 
 int _getline(shell_program *input);
 int check_logic_ops(char *command_arrays[], int i, char opera_arr[]);
@@ -79,11 +79,11 @@ int _print(char *string);
 int _printe(char *string);
 int _print_error(int errorcode, shell_program *input);
 
-int str_length(char *string);
-char *str_duplicate(char *string);
-int str_compare(char *string1, char *string2, int number);
-char *str_concat(char *string1, char *string2);
-void str_reverse(char *string);
+int str_leng(char *str);
+char *str_duplic(char *str);
+int compare_str(char *str1, char *str2, int num_chars);
+char *concat_str(char *str1, char *str2);
+void rever_str(char *str);
 
 void long_string(long numb, char *str, int base);
 int _atoi(char *p);
