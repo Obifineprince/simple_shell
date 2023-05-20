@@ -4,7 +4,8 @@
  * _print - writes an array of characters to the standard output
  * @string: pointer to the array of characters
  *
- * Return: the number of bytes written or -1 on error with errno set appropriately.
+ * Return: the number of bytes written
+ * or -1 on error with errno set appropriately.
  */
 
 int _print(char *string)
@@ -25,15 +26,15 @@ int _printe(char *string)
 }
 
 /**
- * _print_error - writes an array of characters to the standard error
- * @data: a pointer to the program's data
- * @errorcode: error code to print
+ * _printerror - writes an array of characters to the standard error
+ * @input: a pointer to the program's data
+ * @error: error code to print
  *
  * Return: the number of bytes written.
  *         On error, -1 is returned, and errno is set appropriately.
  */
 
-int _print_error(int error, shell_program *input)
+int _printerror(int error, shell_program *input)
 {
 	char n_as_string[10] = {'\0'};
 

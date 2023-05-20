@@ -20,12 +20,10 @@
 "	as cd $HOME.\n"\
 "	if the argumenthelp is - (cd -), the command will be interpreted\n"\
 "	as cd $OLDPWD.\n\n"
-
 #define HELP_EXIT_MSG "exit=\n"\
-
 "exit:\texit [STATUS]\n\n"\
 "	Exit of the simple-shell.\n\n"\
-"	Exits the shell with  N., the exit status\n"\
+"	Exits the shell with a status of N.  If N is omitted, the exit status\n"\
 "	is that of the last command executed.\n\n"
 #define HELP_ENV_MSG "env=\n"\
 "env:\tenv \n\n"\

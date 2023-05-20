@@ -27,15 +27,14 @@ typedef struct shell_program {
     char **alias_list;
 } shell_program;
 
-typedef struct builtins
-{
-	char *builtin;
-	int (*function)(shell_program *input);
+typedef struct builtins {
+    char *builtin;
+    int (*function)(shell_program *input);
 } builtins;
 
 void data_initialize(shell_program *input, int argc, char *argv[], char **env);
-void sisfo(char *prompt, shell_program *input);
-void ctrl_c_handle(int opr NTUSED);
+void process_input(char *prompt, shell_program *input);
+void ctrl_c_handle(int opr );
 
 int _getline(shell_program *input);
 int check_logic_ops(char *command_arrays[], int i, char opera_arr[]);
@@ -47,7 +46,6 @@ int buffer_add(char *buffer, char *str_to_add);
 void custom_tokenize(shell_program *input);
 char *_strtok(char *line, char *delim);
 void **tokenize(shell_program *input);
-
 
 int execute(shell_program *input);
 
@@ -94,10 +92,9 @@ char *get_alias(shell_program *input, char *alias);
 int set_alias(char *alias_string, shell_program *input);
 
 int interactive(info_t *info);
-int _delim(char c, char *delim)
-int _alpha(int c)
-int _atoi(char *s)
-
+int _delim(char c, char *delim);
+int _alpha(int c);
+int _atoi(char *s);
 
 #endif /* SHELL_H */
 

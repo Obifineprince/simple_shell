@@ -54,8 +54,8 @@ int _getline(shell_program *input)
 
 
 /**
-*check_logic_ops - checks and splits for && and || operators
-*@command_arrays: array of commands
+*check_logic - checks and splits for && and || operators
+*@command_array: array of commands
 *@c: index in the array_commands to be checked
 *@opera_arr: array of logical operators for each previous command
 *
@@ -64,7 +64,7 @@ int _getline(shell_program *input)
 */
 
 
-int check_logic_ops(char *command_array[], int c, char opera_arr[])
+int check_logic(char *command_array[], int c, char opera_arr[])
 {
 	char *temp = NULL;
 	int p;

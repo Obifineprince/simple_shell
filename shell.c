@@ -31,12 +31,12 @@ int main(int argc, char *argv[], char *env[])
 /**
  * ctrl_c_handle - Handles the SIGINT signal
  * (Ctrl+C) by printing the prompt in a new line
- * @NTUSED: Unused parameter (can be removed)
+ * @opr: Unused parameter (can be removed)
  *
  * Return: None
  */
 
-void ctrl_c_handle(int opr NTUSED)
+void ctrl_c_handle(int opr)
 {
 	_print("\n");
 	_print(PROMPT_MSG);
@@ -82,7 +82,7 @@ void data_initialize(shell_program *input, int argc, char *argv[], char **env)
 	{
 		for (; env[c]; c++)
 		{
-			input->env[c] = str_duplicate(env[c]);
+			input->env[c] = str_duplic(env[c]);
 		}
 	}
 	input->env[c] = NULL;
@@ -113,7 +113,7 @@ void process_input(char *prompt, shell_program *input)
 
 		if (error_code == EOF)
 		{
-			free_all_data(innput);
+			free_data(input);
 			exit(errno); /* if EOF is the fisrt Char of string, exit*/
 		}
 		if (string_len >= 1)
@@ -127,7 +127,7 @@ void process_input(char *prompt, shell_program *input)
 				if (error_code != 0)
 					_print_error(error_code, input);
 			}
-			free_recurrent_data(input);
+			free_data(input);
 		}
 	}
 }
