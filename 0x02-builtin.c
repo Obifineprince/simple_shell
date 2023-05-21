@@ -21,7 +21,7 @@ int builtin_env(shell_program *input)
 			if (input->tokens[1][j] == '=')
 		{
 /* Checks if a variable with same name exists &temporarily changes its value */
-				var_copy = str_duplicate(env_get_key(spname, input));
+				var_copy = str_duplic(env_get_key(spname, input));
 				if (var_copy != NULL)
 					env_set_key(spname, input->tokens[1] + j + 1, input);
 

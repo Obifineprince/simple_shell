@@ -16,11 +16,11 @@ char *env_get_key(char *key, shell_program *input)
 		return (NULL);
 
 	/* Retrieves the length of the requested variable. */
-	length_of_key = str_length(key);
+	length_of_key = str_leng(key);
 
 	for (sp = 0; input->env[sp]; sp++)
 	{
-		if (str_compare(key, input->env[sp], length_of_key) &&
+		if (compare_str(key, input->env[sp], length_of_key) &&
 			input->env[sp][length_of_key] == '=')
 		{
 			return (input->env[sp] + length_of_key + 1);
@@ -39,7 +39,7 @@ char *env_get_key(char *key, shell_program *input)
  * Return: 1 if any parameter is NULL,
  * 2 if there is an error, or 0 if successful
  */
-int env_set_key(char *key, char *value, input_program *input)
+int env_set_key(char *key, char *value, shell_program *input)
 {
 	int c, length_of_key = 0, new_key = 1;
 
@@ -48,12 +48,12 @@ int env_set_key(char *key, char *value, input_program *input)
 		return (1);
 
 	/* Obtain the length of the requested variable */
-	length_of_key = str_length(key);
+	length_of_key = str_leng(key);
 
 	for (c = 0; input->env[c]; c++)
 	{
 		/* Iterate through the environ and check for a matching name */
-		if (str_compare(key, input->env[c], length_of_key) &&
+		if (compare_str(key, input->env[c], length_of_key) &&
 			input->env[c][length_of_key] == '=')
 		{
 			/* If existing */
@@ -64,8 +64,8 @@ int env_set_key(char *key, char *value, input_program *input)
 		}
 	}
 	/* Create a string in the format "key=value" */
-	input->env[c] = str_concat(str_duplicate(key), "=");
-	input->env[c] = str_concat(input->env[c], value);
+	input->env[c] = concat_str(str_duplic(key), "=");
+	input->env[c] = concat_str(input->env[c], value);
 
 	if (new_key)
 	{
@@ -89,12 +89,12 @@ int env_remove_key(char *key, shell_program *input)
 		return (0);
 
 	/* Retrieve the length of the requested variable */
-	length_of_key = str_length(key);
+	length_of_key = str_leng(key);
 
 	for (c = 0; input->env[c]; c++)
 	{
 /* Scan through the environ and look for matches with specified key */
-		if (str_compare(key, input->env[c], length_of_key) &&
+		if (compare_str(key, input->env[c], length_of_key) &&
 			input->env[c][length_of_key] == '=')
 		{
 		/* If the key already exists, remove it before setting */

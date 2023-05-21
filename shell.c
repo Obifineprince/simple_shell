@@ -16,7 +16,7 @@ int main(int argc, char *argv[], char *env[])
 
 	data_initialize(input, argc, argv, env);
 
-	signal(SIGINT, handle_ctrl_c);
+	signal(SIGINT, ctrl_c_handle);
 
 	if (isatty(STDIN_FILENO) && isatty(STDOUT_FILENO) && argc == 1)
 	{/*  terminal, interactive mode */
@@ -24,7 +24,7 @@ int main(int argc, char *argv[], char *env[])
 		prompt = PROMPT_MSG;
 	}
 	errno = 0;
-	sisifo(prompt, input);
+	process_input(prompt, input);
 	return (0);
 }
 
@@ -36,7 +36,7 @@ int main(int argc, char *argv[], char *env[])
  * Return: None
  */
 
-void ctrl_c_handle(int opr)
+void ctrl_c_handle(int opr UNUSED)
 {
 	_print("\n");
 	_print(PROMPT_MSG);

@@ -86,7 +86,7 @@ int compare_str(char *str1, char *str2, int num_chars)
 	}
 	else /* if there is a number of chars to be compared */
 	{
-		for (intercess = 0; intercess < num_chars ; interccess++)
+		for (intercess = 0; intercess < num_chars ; intercess++)
 		{
 			if (str1[intercess] != str2[intercess])
 			return (0);

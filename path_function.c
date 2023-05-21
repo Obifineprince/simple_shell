@@ -22,11 +22,11 @@ int seek_program(shell_program *input)
 		return (check_file(input->command_name));
 
 	free(input->tokens[0]);
-	input->tokens[0] = str_concat(str_duplicate("/"), input->command_name);
+	input->tokens[0] = concat_str(str_duplic("/"), input->command_name);
 	if (!input->tokens[0])
 		return (2);
 
-	directory = path(input);/* search in the PATH */
+	directory = tokenize_path(input);/* search in the PATH */
 
 	if (!directory || !directory[0])
 	{
@@ -35,20 +35,20 @@ int seek_program(shell_program *input)
 	}
 	for (i = 0; directory[i]; i++)
 	{/* appends the function_name to path */
-		directory[i] = str_concat(directory[i], input->tokens[0]);
+		directory[i] = concat_str(directory[i], input->tokens[0]);
 		ret_code = check_file(directory[i]);
 		if (ret_code == 0 || ret_code == 126)
 		{/* the file was found, is not a directory and has execute permisions*/
 			errno = 0;
 			free(input->tokens[0]);
-			input->tokens[0] = str_duplicate(directory[i]);
-			free_array_of_pointers(directory);
+			input->tokens[0] = str_duplic(directory[i]);
+			free_pointers(directory);
 			return (ret_code);
 		}
 	}
 	free(input->tokens[0]);
 	input->tokens[0] = NULL;
-	free_array_of_pointers(directory);
+	free_pointers(directory);
 	return (ret_code);
 }
 
@@ -73,12 +73,12 @@ char **path(shell_program *input)
 		return (NULL);
 	}
 
-	PATH = str_duplicate(PATH);
+	PATH = str_duplic(PATH);
 
 	/* find the number of directories in the PATH */
 	for (c = 0; PATH[c]; c++)
 	{
-		if (PATH[i] == ':')
+		if (PATH[c] == ':')
 			oppose_directory++;
 	}
 
@@ -87,10 +87,10 @@ char **path(shell_program *input)
 
 	/*tokenize and duplicate each token of path*/
 	c = 0;
-	tokens[c] = str_duplicate(_strtok(PATH, ":"));
+	tokens[c] = str_duplic(_strtok(PATH, ":"));
 	while (tokens[c++])
 	{
-		tokens[c] = str_duplicate(_strtok(NULL, ":"));
+		tokens[c] = str_duplic(_strtok(NULL, ":"));
 	}
 
 	free(PATH);

@@ -11,9 +11,7 @@
 #define BUFFER_SIZE 1024
 
 /************* Formatted string for the help built-in command. **************/
-
 #define HELP_CD_MSG "cd=\n"\
-#define HELP_MESSAGE \
 "cd:\tcd [dir]\n\n"\
 "	Change the shell working directory.\n\n"\
 "	If no argument is given to cd the command will be interpreted\n"\

@@ -34,7 +34,7 @@ void long_string(long numb, char *str, int base)
 		str[index++] = '-';
 
 	str[index] = '\0';
-	str_reverse(str);
+	rever_str(str);
 }
 
 

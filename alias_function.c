@@ -21,10 +21,10 @@ int print_alias(shell_program *input, char *alias)
 
 	if (input->alias_list)
 	{
-		length_of_alias = str_length(alias);
+		length_of_alias = str_leng(alias);
 		for (c = 0; input->alias_list[c]; c++)
 		{
-			if (!alias || (str_compare(input->alias_list[c], alias, length_of_alias)
+			if (!alias || (compare_str(input->alias_list[c], alias, length_of_alias)
 				&&	input->alias_list[c][length_of_alias] == '='))
 			{
 				for (p = 0; input->alias_list[c][p]; p++)
@@ -67,11 +67,11 @@ char *get_alias(shell_program *input, char *name)
 	if (name == NULL || input->alias_list == NULL)
 		return (NULL);
 
-	length_of_alias = str_length(name);
+	length_of_alias = str_leng(name);
 
 	for (c = 0; input->alias_list[c]; c++)
 	{
-		if (str_compare(name, input->alias_list[c], length_of_alias) &&
+		if (compare_str(name, input->alias_list[c], length_of_alias) &&
 			input->alias_list[c][length_of_alias] == '=')
 		{
 			return (input->alias_list[c] + length_of_alias + 1);
@@ -113,7 +113,7 @@ int set_alias(char *alias_string, shell_program *input)
 			break;
 		}
 	for (p = 0; input->alias_list[p]; p++)
-		if (str_compare(buffer, input->alias_list[p], c) &&
+		if (compare_str(buffer, input->alias_list[p], c) &&
 			input->alias_list[p][c] == '=')
 		{
 	/* if the alias alredy exist */
@@ -126,10 +126,10 @@ int set_alias(char *alias_string, shell_program *input)
 /* if the alias already exist */
 		buffer_add(buffer, "=");
 		buffer_add(buffer, temp);
-		input->alias_list[p] = str_duplicate(buffer);
+		input->alias_list[p] = str_duplic(buffer);
 	}
 	else
 	/* if the alias does not exist */
-		input->alias_list[p] = str_duplicate(alias_string);
+		input->alias_list[p] = str_duplic(alias_string);
 	return (0);
 }

@@ -10,15 +10,15 @@ void custom_tokenize(shell_program *input)
 	char *delimiter = " \t";
 	int c, j, counter = 2, length;
 
-	length = str_length(input->input_str);
-	if (length && input->input_str[length - 1] == '\n')
-		input->input_str[length - 1] = '\0';
+	length = str_leng(input->input_line);
+	if (length && input->input_line[length - 1] == '\n')
+		input->input_line[length - 1] = '\0';
 
-	for (c = 0; input->input_str[c]; c++)
+	for (c = 0; input->input_line[c]; c++)
 	{
 		for (j = 0; delimiter[j]; j++)
 		{
-			if (input->input_str[c] == delimiter[j])
+			if (input->input_line[c] == delimiter[j])
 				counter++;
 		}
 	}
@@ -31,12 +31,12 @@ void custom_tokenize(shell_program *input)
 	}
 
 	c = 0;
-	input->tokens[c] = str_duplicate(_strtok(input->input_str, delimiter));
-	input->command_name = str_duplicate(input->tokens[0]);
+	input->tokens[c] = str_duplic(_strtok(input->input_line, delimiter));
+	input->command_name = str_duplic(input->tokens[0]);
 
 	while (input->tokens[c])
 	{
 		c++;
-		input->tokens[c] = str_duplicate(_strtok(NULL, delimiter));
+		input->tokens[c] = str_duplic(_strtok(NULL, delimiter));
 	}
 }

@@ -22,14 +22,14 @@ void expand_variables(shell_program *input)
 		else if (line[s] == '$' && line[s + 1] == '?')
 		{
 			line[s] = '\0';
-			long_to_string(errno, expansion, 10);
+			long_string(errno, expansion, 10);
 			buffer_add(line, expansion);
 			buffer_add(line, input->input_line + s + 2);
 		}
 		else if (line[s] == '$' && line[s + 1] == '$')
 		{
 			line[s] = '\0';
-			long_to_string(getpid(), expansion, 10);
+			long_string(getpid(), expansion, 10);
 			buffer_add(line, expansion);
 			buffer_add(line, input->input_line + s + 2);
 		}
@@ -45,10 +45,10 @@ void expand_variables(shell_program *input)
 			temp ? buffer_add(line, temp) : 1;
 			buffer_add(line, expansion);
 		}
-	if (!str_compare(input->input_line, line, 0))
+	if (!compare_str(input->input_line, line, 0))
 	{
 		free(input->input_line);
-		input->input_line = str_duplicate(line);
+		input->input_line = str_duplic(line);
 	}
 }
 
@@ -83,7 +83,7 @@ void expand_alias(shell_program *input)
 			buffer_add(expansion, line + s + p);
 			line[s] = '\0';
 			buffer_add(line, temp);
-			line[str_length(line)] = '\0';
+			line[str_leng(line)] = '\0';
 			buffer_add(line, expansion);
 			was_expanded = 1;
 		}
@@ -92,7 +92,7 @@ void expand_alias(shell_program *input)
 	if (was_expanded)
 	{
 		free(input->input_line);
-		input->input_line = str_duplicate(line);
+		input->input_line = str_duplic(line);
 	}
 }
 
@@ -112,10 +112,10 @@ int buffer_add(char *buffer, char *str_to_add)
 {
 	int len, c;
 
-	len = str_length(buffer);
+	len = str_leng(buffer);
 	for (c = 0; str_to_add[c]; c++)
 	{
-		buffer[leng + c] = str_to_add[c];
+		buffer[len + c] = str_to_add[c];
 	}
 	buffer[len + c] = '\0';
 	return (len + c);

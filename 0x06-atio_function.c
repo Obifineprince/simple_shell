@@ -1,4 +1,5 @@
 #include "shell.h"
+#include <unistd.h>
 
 /**
  * interactive - checks if the shell is running in interactive mode
@@ -7,9 +8,12 @@
  * Return: 1 if running in interactive mode, 0 otherwise
  */
 
-int interactive(info_t *info)
+int interactive(shell_program *info)
 {
-	return (isatty(STDIN_FILENO) && info->readfd <= 2);
+	if (isatty(STDIN_FILENO) && info != NULL)
+		return 1;
+
+	return 0;
 }
 
 /**
@@ -77,3 +81,4 @@ int _atoi(char *s)
 
 	return (output);
 }
+

@@ -35,7 +35,7 @@ int builtins_list(shell_program *input)
 	for (cursor = 0; options[cursor].builtin != NULL; cursor++)
 	{
 /* In case of a match between the provided command and a built-in function */
-		if (str_compare(options[cursor].builtin, input->command_name, 0))
+		(compare_str(options[cursor].builtin, input->command_name, 0));
 		{
 /* Execute the associated function and return its return value */
 			return (options[cursor].function(input));

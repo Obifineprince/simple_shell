@@ -10,7 +10,7 @@
 
 int _print(char *string)
 {
-	return (write(STDOUT_FILENO, string, str_length(string)));
+	return (write(STDOUT_FILENO, string, str_leng(string)));
 }
 /**
  * _printe - writes an array of characters to the standard error
@@ -22,7 +22,7 @@ int _print(char *string)
 
 int _printe(char *string)
 {
-	return (write(STDERR_FILENO, string, str_length(string)));
+	return (write(STDERR_FILENO, string, str_leng(string)));
 }
 
 /**
@@ -38,7 +38,7 @@ int _printerror(int error, shell_program *input)
 {
 	char n_as_string[10] = {'\0'};
 
-	long_to_string((long) input->exec_counter, n_as_string, 10);
+	long_string((long) input->exec_counter, n_as_string, 10);
 
 	if (error == 2 || error == 3)
 	{

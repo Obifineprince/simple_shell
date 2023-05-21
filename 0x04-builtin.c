@@ -24,7 +24,7 @@ int builtin_exit(shell_program *input)
 			}
 		errno = _atoi(input->tokens[1]);
 	}
-	free_all_input(input);
+	free(input);
 	exit(errno);
 }
 
@@ -43,7 +43,7 @@ int builtin_cd(shell_program *input)
 
 	if (input->tokens[1])
 	{
-		if (str_compare(input->tokens[1], "-", 0))
+		if (compare_str(input->tokens[1], "-", 0))
 		{
 			dir_old = env_get_key("OLDPWD", input);
 			if (dir_old)
@@ -83,7 +83,7 @@ int set_work_directory(shell_program *input, char *new_dir)
 
 	getcwd(old_dir, 128);
 
-	if (!str_compare(old_dir, new_dir, 0))
+	if (!compare_str(old_dir, new_dir, 0))
 	{
 		err_cd = chdir(new_dir);
 		if (err_cd == -1)
@@ -133,8 +133,8 @@ int builtin_help(shell_program *input)
 	for (s = 0; mensajes[s]; s++)
 	{
 		/*display accurate length of string */
-		length = str_length(input->tokens[1]);
-		if (str_compare(input->tokens[1], mensajes[s], length))
+		length = str_leng(input->tokens[1]);
+		if (compare_str(input->tokens[1], mensajes[s], length))
 		{
 			_print(mensajes[s] + length + 1);
 			return (1);
@@ -163,7 +163,7 @@ int builtin_alias(shell_program *input)
 	while (input->tokens[++s])
 	{
 /* if no arguments are given , set or print each environ variab*/
-		if (count_characters(input->tokens[s], "="))
+		if (count_char(input->tokens[s], "="))
 			set_alias(input->tokens[s], input);
 		else
 			print_alias(input, input->tokens[s]);
