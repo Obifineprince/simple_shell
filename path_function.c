@@ -26,7 +26,7 @@ int seek_program(shell_program *input)
 	if (!input->tokens[0])
 		return (2);
 
-	directory = tokenize_path(input);/* search in the PATH */
+	directory = custom_tokenize(input);/* search in the PATH */
 
 	if (!directory || !directory[0])
 	{

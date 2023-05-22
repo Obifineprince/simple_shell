@@ -1,8 +1,8 @@
 #include "shell.h"
 
 /**
- * execute - execute a command using its complete path and variables.
- * @input: a pointer to the program's data structure.
+ * execute - command execution using its complete path and variables.
+ * @input: this input points to the program's data structure.
  * Return: Returns zero on success, otherwise returns -1.
  */
 
@@ -11,13 +11,11 @@ int execute(shell_program *input)
 	int retval = 0, status;
 	pid_t pidd;
 
-/* Check if the program is a built-in command */
 	retval = builtins_list(input);
 	if (retval != -1)/* if program was found in built ins */
 		return (retval);
 
-	/* Verify the existence of the program in the file system */
-	retval = find_program(input);
+	retval = seek_program(input);
 	if (retval)
 	{/* if the program is not found */
 		return (retval);

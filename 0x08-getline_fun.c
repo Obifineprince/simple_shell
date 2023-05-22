@@ -37,7 +37,7 @@ int _getline(shell_program *input)
 		do {
 			command_array[c] = str_duplic(_strtok(c ? NULL : buff, "\n;"));
 			/*checks and split for && and || operators*/
-			c = check_logic_ops(command_array, c, opera_arr);
+			c = check_logic(command_array, c, opera_arr);
 		} while (command_array[c++]);
 	}
 

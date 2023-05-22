@@ -37,7 +37,7 @@ void process_input(char *prompt, shell_program *input);
 void ctrl_c_handle(int opr );
 
 int _getline(shell_program *input);
-int check_logic_ops(char *command_arrays[], int i, char opera_arr[]);
+int check_logic(char *command_arrays[], int i, char opera_arr[]);
 
 void expand_variables(shell_program *input);
 void expand_alias(shell_program *input);
@@ -52,7 +52,7 @@ int execute(shell_program *input);
 int builtins_list(shell_program *input);
 
 char **tokenize_path(shell_program *input);
-int find_program(shell_program *input);
+int seek_program(shell_program *input);
 
 void free_pointers(char **directory);
 void free_recurrent(shell_program *input);
