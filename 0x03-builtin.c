@@ -2,7 +2,7 @@
 
 /**
  * builtins_list - Searches for a match and executes the
- * associated built-in command.
+ * associated built-in command in the shell.
  * @input: Pointer to the struct containing the program's data.
  *
  * This function searches for a match between the command

@@ -2,7 +2,7 @@
 
 /**
  * builtin_exit - Terminates the program with a specific status
- * @input: Pointer to the program's data struct
+ * @input: Pointer to the program's data structure
  * Return: Returns zero if successful,
  * or a non-zero value if specified in the arguments
  */

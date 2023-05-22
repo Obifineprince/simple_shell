@@ -48,7 +48,7 @@ int builtin_env(shell_program *input)
 	return (0);
 }
 /**
- * builtin_set_env - Function to perform a specific task.
+ * builtin_set_env - Function to perform a specific task in the shell
  * @input: Pointer to the struct holding program data.
  * Return: Integer indicating success (zero) or failure (non-zero).
  */
@@ -71,7 +71,7 @@ int builtin_set_env(shell_program *input)
 }
 
 /**
- * builtin_unset_env - Function to perform a specific task.
+ * builtin_unset_env - Function to perform a specific task in the shell.
  * @input: Pointer to the struct holding program data.
  * Return: Integer indicating success (zero) or failure (non-zero).
  */
