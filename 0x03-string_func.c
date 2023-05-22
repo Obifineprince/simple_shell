@@ -37,38 +37,6 @@ void long_string(long numb, char *str, int base)
    rever_str(str);
 }
 
-
-/**
- * _atoi - Converts a string to an integer.
- *
- * @p: Pointer to the original string.
- * Return: Integer value of the string or 0 if conversion fails.
- */
-
-/*
-int _atoi(char *p)
-{
-    int sign = 1;
-    unsigned int numb = 0;
-
-    while (!('0' <= *p && *p <= '9') && *p != '\0')
-    {
-        if (*p == '-')
-            sign *= -1;
-        if (*p == '+')
-            sign *= +1;
-        p++;
-    }
-
-    while ('0' <= *p && *p <= '9' && *p != '\0')
-    {
-        numb = (numb * 10) + (*p - '0');
-        p++;
-    }
-    return (numb * sign);
-}
-*/
-
 /**
  * count_char - count the occurrences of a character in a string.
  *

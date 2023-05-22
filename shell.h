@@ -51,7 +51,7 @@ int execute(shell_program *input);
 
 int builtins_list(shell_program *input);
 
-char **tokenize_path(shell_program *input);
+char **path(shell_program *input);
 int seek_program(shell_program *input);
 
 void free_pointers(char **directory);
@@ -75,7 +75,7 @@ void print_environ(shell_program *input);
 
 int _print(char *string);
 int _printe(char *string);
-int _print_error(int errorcode, shell_program *input);
+int _printerror(int error, shell_program *input);
 
 int str_leng(char *str);
 char *str_duplic(char *str);

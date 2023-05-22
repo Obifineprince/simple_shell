@@ -36,7 +36,7 @@ int main(int argc, char *argv[], char *env[])
  * Return: None
  */
 
-void ctrl_c_handle(int opr )
+void ctrl_c_handle(int opr UNUSED)
 {
 	_print("\n");
 	_print(PROMPT_MSG);
