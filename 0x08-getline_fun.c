@@ -29,7 +29,7 @@ int _getline(shell_program *input)
 
 		/* read from the file descriptor int to buff */
 		bytes_read = read(input->file_descriptor, &buff, BUFFER_SIZE - 1);
-		if (bytes_read == 0)
+		if (bytes_read == -1)
 			return (-1);
 
 		/* split lines for \n or ; */

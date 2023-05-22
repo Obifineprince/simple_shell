@@ -35,8 +35,7 @@ int main(int argc, char *argv[], char *env[])
  *
  * Return: None
  */
-
-void ctrl_c_handle(int opr )
+void ctrl_c_handle(int opr __attribute__((unused)))
 {
 	_print("\n");
 	_print(PROMPT_MSG);
@@ -94,6 +93,7 @@ void data_initialize(shell_program *input, int argc, char *argv[], char **env)
 		input->alias_list[c] = NULL;
 	}
 }
+
 /**
  * process_input - Performs operations with
  * a given prompt and shell program input
@@ -104,31 +104,31 @@ void data_initialize(shell_program *input, int argc, char *argv[], char **env)
  */
 void process_input(char *prompt, shell_program *input)
 {
-	int error = 0, string_len = 0;
+    int error = 0, string_len = 0;
 
-	while (++(input->exec_counter))
-	{
-		_print(prompt);
-		error = string_len = _getline(input);
+    while ((input->exec_counter)++)
+    {
+        _print(prompt);
+        error = string_len = _getline(input);
 
-		if (error == EOF)
-		{
-			free_data(input);
-			exit(errno); /* if EOF is the fisrt Char of string, exit*/
-		}
-		if (string_len >= 1)
-		{
-			expand_alias(input);
-			expand_variables(input);
-			custom_tokenize(input);
-			if (input->tokens[0])
-			{ /* if a text is given to prompt, execute */
-				error = execute(input);
-				if (error != 0)
-					_printerror(error, input);
-			}
-			free_data(input);
-		}
-	}
+        if (error == EOF)
+        {
+            free_data(input);
+            exit(errno); /* if EOF is the first Char of string, exit */
+        }
+        if (string_len >= 1)
+        {
+            expand_alias(input);
+            expand_variables(input);
+            custom_tokenize(input);
+            if (input->tokens[0])
+            { /* if a text is given to prompt, execute */
+                error = execute(input);
+                if (error != 0)
+                    _printerror(error, input);
+            }
+            free_data(input);
+        }
+    }
 }
 

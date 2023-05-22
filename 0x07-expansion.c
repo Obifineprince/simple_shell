@@ -87,7 +87,6 @@ void expand_alias(shell_program *input)
 			buffer_add(line, expansion);
 			was_expanded = 1;
 		}
-		break;
 	}
 	if (was_expanded)
 	{

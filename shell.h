@@ -34,7 +34,7 @@ typedef struct builtins {
 
 void data_initialize(shell_program *input, int argc, char *argv[], char **env);
 void process_input(char *prompt, shell_program *input);
-void ctrl_c_handle(int opr );
+void ctrl_c_handle(int opr);
 
 int _getline(shell_program *input);
 int check_logic(char *command_arrays[], int i, char opera_arr[]);
