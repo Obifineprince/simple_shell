@@ -12,29 +12,29 @@
 
 void long_string(long numb, char *str, int base)
 {
-    int index = 0, inNegative = 0;
-    long cociente = numb;
-    char letters[] = {"0123456789abcdef"};
+	int index = 0, inNegative = 0;
+	long cociente = numb;
+	char letters[] = {"0123456789abcdef"};
 
-    if (cociente == 0)
-        str[index++] = '0';
+	if (cociente == 0)
+		str[index++] = '0';
 
-    if (str[0] == '-')
-        inNegative = 1;
+	if (str[0] == '-')
+		inNegative = 1;
 
-    while (cociente)
-    {
-        if (cociente < 0)
-            str[index++] = letters[-(cociente % base)];
-        else
-            str[index++] = letters[cociente % base];
-        cociente /= base;
-    }
-    if (inNegative)
-        str[index++] = '-';
+	while (cociente)
+	{
+		if (cociente < 0)
+			str[index++] = letters[-(cociente % base)];
+		else
+			str[index++] = letters[cociente % base];
+		cociente /= base;
+	}
+	if (inNegative)
+		str[index++] = '-';
 
-    str[index] = '\0';
-   rever_str(str);
+	str[index] = '\0';
+	rever_str(str);
 }
 
 /**
@@ -46,13 +46,12 @@ void long_string(long numb, char *str, int base)
  */
 int count_char(char *str, char *character)
 {
-    int c = 0, count = 0;
+	int c = 0, count = 0;
 
-    for (; str[c]; c++)
-    {
-        if (str[c] == character[0])
-            count++;
-    }
-    return (count);
+	for (; str[c]; c++)
+	{
+		if (str[c] == character[0])
+			count++;
+	}
+	return (count);
 }
-
