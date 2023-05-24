@@ -1,55 +1,57 @@
 #include "shell.h"
 
 /**
- * builtin_exit - exit of the program with the status
- * @data: struct for the program's data
- * Return: zero if sucess, or other number if its declared in the arguments
+ * builtin_exit - Terminates the program with a specific status
+ * @input: Pointer to the program's data structure
+ * Return: Returns zero if successful,
+ * or a non-zero value if specified in the arguments
  */
-int builtin_exit(data_of_program *data)
+int builtin_exit(shell_program *input)
 {
 	int i;
 
-	if (data->tokens[1] != NULL)
+	if (input->tokens[1] != NULL)
 	{/*if exists arg for exit, check if is a number*/
-		for (i = 0; data->tokens[1][i]; i++)
-			if ((data->tokens[1][i] < '0' || data->tokens[1][i] > '9')
-				&& data->tokens[1][i] != '+')
+		for (i = 0; input->tokens[1][i]; i++)
+			if ((input->tokens[1][i] < '0' || input->tokens[1][i] > '9')
+				&& input->tokens[1][i] != '+')
 			{/*if is not a number*/
 				errno = 2;
 				return (2);
 			}
-		errno = _atoi(data->tokens[1]);
+		errno = _atoi(input->tokens[1]);
 	}
-	free_all_data(data);
+	free_all_input(input);
 	exit(errno);
 }
 
 /**
  * builtin_cd - change the current directory
- * @data: struct for the program's data
- * Return: zero if sucess, or other number if its declared in the arguments
+ * @input: struct for the program's data
+ * Return: Returns zero if successful,
+ * or a non-zero number if an error occurs
  */
-int builtin_cd(data_of_program *data)
+int builtin_cd(shell_program *input)
 {
-	char *dir_home = env_get_key("HOME", data), *dir_old = NULL;
+	char *dir_home = env_get_key("HOME", input), *dir_old = NULL;
 	char old_dir[128] = {0};
 	int error_code = 0;
 
-	if (data->tokens[1])
+	if (input->tokens[1])
 	{
-		if (str_compare(data->tokens[1], "-", 0))
+		if (str_compare(input->tokens[1], "-", 0))
 		{
-			dir_old = env_get_key("OLDPWD", data);
+			dir_old = env_get_key("OLDPWD", input);
 			if (dir_old)
-				error_code = set_work_directory(data, dir_old);
-			_print(env_get_key("PWD", data));
+				error_code = set_work_directory(input, dir_old);
+			_print(env_get_key("PWD", input));
 			_print("\n");
 
 			return (error_code);
 		}
 		else
 		{
-			return (set_work_directory(data, data->tokens[1]));
+			return (set_work_directory(input, input->tokens[1]));
 		}
 	}
 	else
@@ -57,18 +59,19 @@ int builtin_cd(data_of_program *data)
 		if (!dir_home)
 			dir_home = getcwd(old_dir, 128);
 
-		return (set_work_directory(data, dir_home));
+		return (set_work_directory(input, dir_home));
 	}
 	return (0);
 }
 
 /**
- * set_work_directory - set the work directory
- * @data: struct for the program's data
- * @new_dir: path to be set as work directory
- * Return: zero if sucess, or other number if its declared in the arguments
+ * set_work_directory - set the working directory
+ * @input: struct for the program's data
+ * @new_dir: path to be set as the working directory
+ * Return: Returns zero if successful,
+ * or a non-zero number if an error occurs
  */
-int set_work_directory(data_of_program *data, char *new_dir)
+int set_work_directory(shell_program *input, char *new_dir)
 {
 	char old_dir[128] = {0};
 	int err_code = 0;
@@ -83,18 +86,19 @@ int set_work_directory(data_of_program *data, char *new_dir)
 			errno = 2;
 			return (3);
 		}
-		env_set_key("PWD", new_dir, data);
+		env_set_key("PWD", new_dir, input);
 	}
-	env_set_key("OLDPWD", old_dir, data);
+	env_set_key("OLDPWD", old_dir, input);
 	return (0);
 }
 
 /**
- * builtin_help - shows the environment where the shell runs
- * @data: struct for the program's data
- * Return: zero if sucess, or other number if its declared in the arguments
+ * builtin_help - display the help information for the shell
+ * @input: struct for the program's data
+ * Return: Returns zero if successful,
+ * or a non-zero number if an error occurs
  */
-int builtin_help(data_of_program *data)
+int builtin_help(shell_program *input)
 {
 	int i, length = 0;
 	char *mensajes[6] = {NULL};
@@ -102,15 +106,15 @@ int builtin_help(data_of_program *data)
 	mensajes[0] = HELP_MSG;
 
 	/* validate args */
-	if (data->tokens[1] == NULL)
+	if (input->tokens[1] == NULL)
 	{
 		_print(mensajes[0] + 6);
 		return (1);
 	}
-	if (data->tokens[2] != NULL)
+	if (input->tokens[2] != NULL)
 	{
 		errno = E2BIG;
-		perror(data->command_name);
+		perror(input->command_name);
 		return (5);
 	}
 	mensajes[1] = HELP_EXIT_MSG;
@@ -122,8 +126,8 @@ int builtin_help(data_of_program *data)
 	for (i = 0; mensajes[i]; i++)
 	{
 		/*print the length of string */
-		length = str_length(data->tokens[1]);
-		if (str_compare(data->tokens[1], mensajes[i], length))
+		length = str_length(input->tokens[1]);
+		if (str_compare(input->tokens[1], mensajes[i], length))
 		{
 			_print(mensajes[i] + length + 1);
 			return (1);
@@ -131,29 +135,30 @@ int builtin_help(data_of_program *data)
 	}
 	/*if there is no match, print error and return -1 */
 	errno = EINVAL;
-	perror(data->command_name);
+	perror(input->command_name);
 	return (0);
 }
 
 /**
- * builtin_alias - add, remove or show aliases
- * @data: struct for the program's data
- * Return: zero if sucess, or other number if its declared in the arguments
+ * builtin_alias - manage aliases (add, remove, or show)
+ * @input: struct for the program's data
+ * Return: Returns zero if successful.
+ * or a non-zero number if an error occurs
  */
-int builtin_alias(data_of_program *data)
+int builtin_alias(shell_program *input)
 {
 	int i = 0;
 
 	/* if there are no arguments, print all environment */
-	if (data->tokens[1] == NULL)
-		return (print_alias(data, NULL));
+	if (input->tokens[1] == NULL)
+		return (print_alias(input, NULL));
 
-	while (data->tokens[++i])
+	while (input->tokens[++i])
 	{/* if there are arguments, set or print each env variable*/
-		if (count_characters(data->tokens[i], "="))
-			set_alias(data->tokens[i], data);
+		if (count_characters(input->tokens[i], "="))
+			set_alias(input->tokens[i], input);
 		else
-			print_alias(data, data->tokens[i]);
+			print_alias(input, input->tokens[i]);
 	}
 
 	return (0);
