@@ -15,11 +15,9 @@
  *  if there is a match,
  * otherwise -1.
  **/
-
-
 int builtins_list(shell_program *input)
 {
-	int cursor;
+	int iterator;
 	builtins options[] = {
 		{"exit", builtin_exit},
 		{"help", builtin_help},
@@ -31,16 +29,16 @@ int builtins_list(shell_program *input)
 		{NULL, NULL}
 	};
 
-/* Traverse the structure */
-	for (cursor = 0; options[cursor].builtin != NULL; cursor++)
+/*walk through the structure*/
+	for (iterator = 0; options[iterator].builtin != NULL; iterator++)
 	{
-/* In case of a match between the provided command and a built-in function */
-		(compare_str(options[cursor].builtin, input->command_name, 0));
+/*if there is a match between the given command and a builtin,*/
+		if (str_compare(options[iterator].builtin, input->command_name, 0))
 		{
-/* Execute the associated function and return its return value */
-			return (options[cursor].function(input));
+/*execute the function, and return the return value of the function*/
+			return (options[iterator].function(input));
 		}
-/* Return -1 if there is no match */
+/*if there is no match return -1 */
 	}
 	return (-1);
 }
