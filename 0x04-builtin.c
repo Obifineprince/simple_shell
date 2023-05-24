@@ -151,14 +151,14 @@ int builtin_alias(shell_program *input)
 
 	/* if there are no arguments, print all environment */
 	if (input->tokens[1] == NULL)
-		return (print_alias(input, NULL));
+		return (print_func_alias(input, NULL));
 
 	while (input->tokens[++i])
 	{/* if there are arguments, set or print each env variable*/
 		if (count_characters(input->tokens[i], "="))
-			set_alias(input->tokens[i], input);
+			set_func_alias(input->tokens[i], input);
 		else
-			print_alias(input, input->tokens[i]);
+			print_func_alias(input, input->tokens[i]);
 	}
 
 	return (0);

@@ -109,7 +109,7 @@ int set_func_alias(char *alias_string, shell_program *input)
 			buffer[i] = alias_string[i];
 		else
 		{/* search if the value of the alias is another alias */
-			temp = get_alias(input, alias_string + i + 1);
+			temp = get_func_alias(input, alias_string + i + 1);
 			break;
 		}
 

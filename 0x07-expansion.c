@@ -72,7 +72,7 @@ void alias_expansion(shell_program *input)
 			expansion[j] = line[i + j];
 		expansion[j] = '\0';
 
-		temp = get_alias(input, expansion);
+		temp = get_func_alias(input, expansion);
 		if (temp)
 		{
 			expansion[0] = '\0';

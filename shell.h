@@ -88,9 +88,9 @@ void long_to_string(long number, char *string, int base);
 int _atoi(char *s);
 int count_characters(char *string, char *character);
 
-int print_alias(shell_program *input, char *alias);
-char *get_alias(shell_program *input, char *name);
-int set_alias(char *alias_string, shell_program *input);
+int print_func_alias(shell_program *input, char *alias);
+char *get_func_alias(shell_program *input, char *name);
+int set_func_alias(char *alias_string, shell_program *input);
 
 int interactive(shell_program *info);
 int _delim(char c, char *delim);

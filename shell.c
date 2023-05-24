@@ -112,8 +112,8 @@ void process_input(char *prompt, shell_program *input)
 		}
 		if (string_len >= 1)
 		{
-			expand_alias(input);
-			expand_variables(input);
+			alias_expansion(input);
+			variables_expansion(input);
 			tokenize(input);
 			if (input->tokens[0])
 			{ /* if a text is given to prompt, execute */
