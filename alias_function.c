@@ -13,7 +13,7 @@
  *  is an error or if the specified alias is not found.
  */
 
-int print_alias(shell_program *input, char *alias)
+int print_func_alias(shell_program *input, char *alias)
 {
 	int i, j, alias_length;
 	char buffer[250] = {'\0'};
@@ -58,7 +58,7 @@ int print_alias(shell_program *input, char *alias)
  * is not found or if there is an error.
  */
 
-char *get_alias(shell_program *input, char *name)
+char *get_func_alias(shell_program *input, char *name)
 {
 	int i, alias_length;
 
@@ -95,7 +95,7 @@ char *get_alias(shell_program *input, char *name)
  * or a non-zero number if there is an error
  * or if the alias string is not in the correct format.
  */
-int set_alias(char *alias_string, shell_program *input)
+int set_func_alias(char *alias_string, shell_program *input)
 {
 	int i, j;
 	char buffer[250] = {'0'}, *temp = NULL;
