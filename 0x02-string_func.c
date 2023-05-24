@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * free_recurrent - This function frees the
+ * free_recurrent_data - This function frees the
  * fields that are needed for each loop
  *
  * @input: A struct containing the program's data
@@ -9,11 +9,10 @@
  * Return: void
  */
 
-
-void free_recurrent(shell_program *input)
+void free_recurrent_data(shell_program *input)
 {
 	if (input->tokens)
-		free_pointers(input->tokens);
+		free_array_of_pointers(input->tokens);
 	if (input->input_line)
 		free(input->input_line);
 	if (input->command_name)
@@ -24,7 +23,7 @@ void free_recurrent(shell_program *input)
 	input->tokens = NULL;
 }
 /**
- * free_data - This function frees all
+ * free_all_data - This function frees all
  * fields of the program's data
  *
  * @input: A struct containing the program's data
@@ -32,40 +31,37 @@ void free_recurrent(shell_program *input)
  * Return: void
  */
 
-
-void free_data(shell_program *input)
+void free_all_data(shell_program *input)
 {
 	if (input->file_descriptor != 0)
 	{
 		if (close(input->file_descriptor))
 			perror(input->program_name);
 	}
-	free_data(input);
-	free_pointers(input->env);
-	free_pointers(input->alias_list);
+	free_recurrent_data(input);
+	free_array_of_pointers(input->env);
+	free_array_of_pointers(input->alias_list);
 }
-
 /**
- * free_pointers - This function frees each pointer of
+ * free_array_of_pointers - This function frees each pointer of
  * an array of pointers and the array itself
  *
- * @directory: An array of pointers
+ * @array: An array of pointers
  *
  * Return: void
  */
 
 
-void free_pointers(char **directory)
+void free_array_of_pointers(char **array)
 {
-	int c;
+	int i;
 
-	if (directory != NULL)
+	if (array != NULL)
 	{
-		for (c = 0; directory[c]; c++)
-			free(directory[c]);
+		for (i = 0; array[i]; i++)
+			free(array[i]);
 
-		free(directory);
-		directory = NULL;
+		free(array);
+		array = NULL;
 	}
 }
-

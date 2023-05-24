@@ -1,18 +1,17 @@
 #include "shell.h"
 
 int check_file(char *full_path);
-
 /**
- * seek_program - Searches for a program in the specified path.
- * @input: A pointer to the program's data.
+ * seek_program - Search for a program in the specified path directories.
  *
- * Return: 0 if the program is found, or an error code otherwise.
+ * @input: Pointer to the program's data structure.
+ *
+ * Return: 0 on success (program found and accessible), error code otherwise.
  */
-
 int seek_program(shell_program *input)
 {
 	int i = 0, ret_code = 0;
-	char **directory;
+	char **directories;
 
 	if (!input->command_name)
 		return (2);
@@ -22,47 +21,50 @@ int seek_program(shell_program *input)
 		return (check_file(input->command_name));
 
 	free(input->tokens[0]);
-	input->tokens[0] = concat_str(str_duplic("/"), input->command_name);
+	input->tokens[0] = str_concatenate(str_duplicate("/"), input->command_name);
 	if (!input->tokens[0])
 		return (2);
 
-	directory = path(input);/* search in the PATH */
+	directories = tokenize_path(input);/* search in the PATH */
 
-	if (!directory || !directory[0])
+	if (!directories || !directories[0])
 	{
 		errno = 127;
 		return (127);
 	}
-	for (i = 0; directory[i]; i++)
+	for (i = 0; directories[i]; i++)
 	{/* appends the function_name to path */
-		directory[i] = concat_str(directory[i], input->tokens[0]);
-		ret_code = check_file(directory[i]);
+		directories[i] = str_concatenate(directories[i], input->tokens[0]);
+		ret_code = check_file(directories[i]);
 		if (ret_code == 0 || ret_code == 126)
 		{/* the file was found, is not a directory and has execute permisions*/
 			errno = 0;
 			free(input->tokens[0]);
-			input->tokens[0] = str_duplic(directory[i]);
-			free_pointers(directory);
+			input->tokens[0] = str_duplicate(directories[i]);
+			free_array_of_pointers(directories);
 			return (ret_code);
 		}
 	}
 	free(input->tokens[0]);
 	input->tokens[0] = NULL;
-	free_pointers(directory);
+	free_array_of_pointers(directories);
 	return (ret_code);
 }
-
 /**
- * path - Tokenizes the path string into individual directories.
- * @input: A pointer to the program's data.
+ * tokenize_path - Split the path string into individual directory tokens.
+ *
+ * @input: Pointer to the program's data structure.
+ *
+ * Description: This function takes a path string and splits it into individual
+ *              directory tokens. It returns an array of path directories.
  *
  * Return: An array of path directories.
  */
 
-char **path(shell_program *input)
+char **tokenize_path(shell_program *input)
 {
-	int c = 0;
-	int oppose_directory = 2;
+	int i = 0;
+	int counter_directories = 2;
 	char **tokens = NULL;
 	char *PATH;
 
@@ -73,24 +75,24 @@ char **path(shell_program *input)
 		return (NULL);
 	}
 
-	PATH = str_duplic(PATH);
+	PATH = str_duplicate(PATH);
 
 	/* find the number of directories in the PATH */
-	for (c = 0; PATH[c]; c++)
+	for (i = 0; PATH[i]; i++)
 	{
-		if (PATH[c] == ':')
-			oppose_directory++;
+		if (PATH[i] == ':')
+			counter_directories++;
 	}
 
 	/* reserve space for the array of pointers */
-	tokens = malloc(sizeof(char *) * oppose_directory);
+	tokens = malloc(sizeof(char *) * counter_directories);
 
 	/*tokenize and duplicate each token of path*/
-	c = 0;
-	tokens[c] = str_duplic(_strtok(PATH, ":"));
-	while (tokens[c++])
+	i = 0;
+	tokens[i] = str_duplicate(_strtok(PATH, ":"));
+	while (tokens[i++])
 	{
-		tokens[c] = str_duplic(_strtok(NULL, ":"));
+		tokens[i] = str_duplicate(_strtok(NULL, ":"));
 	}
 
 	free(PATH);
@@ -98,7 +100,6 @@ char **path(shell_program *input)
 	return (tokens);
 
 }
-
 /**
  * check_file - function checks availability of file,
  * is not a directory, and has execution permissions
@@ -106,8 +107,6 @@ char **path(shell_program *input)
  *
  * Return: an error code if it does not exist or lacks permissions.
  */
-
-
 int check_file(char *full_path)
 {
 	struct stat sb;

@@ -21,7 +21,7 @@ int builtin_exit(shell_program *input)
 			}
 		errno = _atoi(input->tokens[1]);
 	}
-	free_all_input(input);
+	free_all_data(input);
 	exit(errno);
 }
 

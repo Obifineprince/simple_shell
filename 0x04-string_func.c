@@ -1,123 +1,122 @@
 #include "shell.h"
-
 /**
- * str_leng - calc the length of a string.
- * @str: Pointer points  to the string.
+ * str_length - Computes the length of a given string.
+ *
+ * @string: Pointer to the string to be measured.
  *
  * Return: The length of the string.
  */
 
-int str_leng(char *str)
+int str_length(char *string)
 {
-	int leng = 0;
+	int length = 0;
 
-	if (str == NULL)
+	if (string == NULL)
 		return (0);
 
-	while (str[leng++] != '\0')
+	while (string[length++] != '\0')
 	{
 	}
-	return (--leng);
+	return (--length);
 }
-
 /**
- * str_duplic -function Duplicate a string.
- * @str: String to be duplicated.
+ * str_duplicate - Creates a duplicate of a given string.
  *
- * Return: Pointer to the duplicated string.
+ * @string: The string to be duplicated.
+ *
+ * Return: A pointer to the newly created duplicated string.
  */
 
-char *str_duplic(char *str)
+char *str_duplicate(char *string)
 {
-	char *output;
-	int leng, c;
+	char *result;
+	int length, i;
 
-	if (str == NULL)
+	if (string == NULL)
 		return (NULL);
 
-	leng = str_leng(str) + 1;
+	length = str_length(string) + 1;
 
-	output = malloc(sizeof(char) * leng);
+	result = malloc(sizeof(char) * length);
 
-	if (output == NULL)
+	if (result == NULL)
 	{
 		errno = ENOMEM;
 		perror("Error");
 		return (NULL);
 	}
-	for (c = 0; c < leng ; c++)
+	for (i = 0; i < length ; i++)
 	{
-		output[c] = str[c];
+		result[i] = string[i];
 	}
 
-	return (output);
+	return (result);
 }
-
 /**
- * compare_str - function  Comps two strings.
- * @str1: First string.
- * @str2: Second string.
- * @num_chars: Number of characters to compare.
- * Set to 0 for unlimited comparison.
+ * compare_strings - Compare two strings.
  *
- * Return: if equal 1, 0 if the strings are different.
+ * @string1: The first string to compare.
+ * @string2: The second string to compare.
+ * @number: The number of characters to compare, 0 for unlimited.
+ *
+ * Return: 1 if the strings are equal, 0 if the strings are different.
  */
 
-int compare_str(char *str1, char *str2, int num_chars)
+int compare_strings(char *string1, char *string2, int number)
 {
-	int intercess;
+	int iterator;
 
-	if (str1 == NULL && str2 == NULL)
+	if (string1 == NULL && string2 == NULL)
 		return (1);
 
-	if (str1 == NULL || str2 == NULL)
+	if (string1 == NULL || string2 == NULL)
 		return (0);
 
-	if (num_chars == 0) /* infinite longitud */
+	if (number == 0) /* infinite longitud */
 	{
-		if (str_leng(str1) != str_leng(str2))
+		if (str_length(string1) != str_length(string2))
 			return (0);
-		for (intercess = 0; str1[intercess]; intercess++)
+		for (iterator = 0; string1[iterator]; iterator++)
 		{
-			if (str1[intercess] != str2[intercess])
+			if (string1[iterator] != string2[iterator])
 				return (0);
 		}
 		return (1);
 	}
 	else /* if there is a number of chars to be compared */
 	{
-		for (intercess = 0; intercess < num_chars ; intercess++)
+		for (iterator = 0; iterator < number ; iterator++)
 		{
-			if (str1[intercess] != str2[intercess])
+			if (string1[iterator] != string2[iterator])
 			return (0);
 		}
 		return (1);
 	}
 }
-
 /**
- * concat_str -  function Concatenates two strings.
- * @str1: First string.
- * @str2: Second string.
+ * str_concatenate - Concatenates two strings.
+ *
+ * @string1: The first string to be concatenated.
+ * @string2: The second string to be concatenated.
  *
  * Return: Pointer to the concatenated string.
  */
 
-char *concat_str(char *str1, char *str2)
+char *str_concatenate(char *string1, char *string2)
 {
-	char *output;
-	int leng1 = 0, leng2 = 0;
+	char *result;
+	int length1 = 0, length2 = 0;
 
-	if (str1 == NULL)
-		str1 = "";
-	leng1 = str_leng(str1);
+	if (string1 == NULL)
+		string1 = "";
+	length1 = str_length(string1);
 
-	if (str2 == NULL)
-		str2 = "";
-	leng2 = str_leng(str2);
+	if (string2 == NULL)
+		string2 = "";
+	length2 = str_length(string2);
 
-	output = malloc(sizeof(char) * (leng1 + leng2 + 1));
-	if (output == NULL)
+	result = malloc(sizeof(char) * (length1 + length2 + 1));
+	if (result == NULL)
 	{
 		errno = ENOMEM;
 		perror("Error");
@@ -125,41 +124,39 @@ char *concat_str(char *str1, char *str2)
 	}
 
 	/* copy of string1 */
-	for (leng1 = 0; str1[leng1] != '\0'; leng1++)
-		output[leng1] = str1[leng1];
-	free(str1);
+	for (length1 = 0; string1[length1] != '\0'; length1++)
+		result[length1] = string1[length1];
+	free(string1);
 
 	/* copy of string2 */
-	for (leng2 = 0; str2[leng2] != '\0'; leng2++)
+	for (length2 = 0; string2[length2] != '\0'; length2++)
 	{
-		output[leng1] = str2[leng2];
-		leng1++;
+		result[length1] = string2[length2];
+		length1++;
 	}
 
-	output[leng1] = '\0';
-	return (output);
+	result[length1] = '\0';
+	return (result);
 }
 
-
 /**
- * rever_str - function  Reverses a given string.
+ * str_reverse - Reverses a string.
  *
- * @str: Pointer to the string to be reversed.
+ * @string: Pointer to the string to be reversed.
+ *
  * Return: void.
  */
 
-
-void rever_str(char *str)
+void str_reverse(char *string)
 {
 
-	int c = 0, leng = str_leng(str) - 1;
+	int i = 0, length = str_length(string) - 1;
 	char hold;
 
-	while (c < leng)
+	while (i < length)
 	{
-		hold = str[c];
-		str[c++] = str[leng];
-		str[leng--] = hold;
+		hold = string[i];
+		string[i++] = string[length];
+		string[length--] = hold;
 	}
 }
-

@@ -7,19 +7,17 @@
  *
  * Return: 0 on success.
  */
-
-
 int main(int argc, char *argv[], char *env[])
 {
 	shell_program input_struct = {NULL}, *input = &input_struct;
 	char *prompt = "";
 
-	data_initialize(input, argc, argv, env);
+	inicialize_data(input, argc, argv, env);
 
-	signal(SIGINT, ctrl_c_handle);
+	signal(SIGINT, handle_ctrl_c);
 
 	if (isatty(STDIN_FILENO) && isatty(STDOUT_FILENO) && argc == 1)
-	{/*  terminal, interactive mode */
+	{/* We are in the terminal, interactive mode */
 		errno = 2;/*???????*/
 		prompt = PROMPT_MSG;
 	}
@@ -27,22 +25,20 @@ int main(int argc, char *argv[], char *env[])
 	process_input(prompt, input);
 	return (0);
 }
-
 /**
- * ctrl_c_handle - Handles the SIGINT signal
+ * handle_ctrl_c - Handles the SIGINT signal
  * (Ctrl+C) by printing the prompt in a new line
- * @opr: Unused parameter (can be removed)
+ * @UNUSED: Unused parameter (can be removed)
  *
  * Return: None
  */
-void ctrl_c_handle(int opr __attribute__((unused)))
+void handle_ctrl_c(int opr UNUSED)
 {
 	_print("\n");
 	_print(PROMPT_MSG);
 }
-
 /**
- * data_initialize - Initializes the program's
+ * inicialize_data - Initializes the program's
  * data structure with the provided information
  * @input: Pointer to the data structure to be initialized
  * @argv: Array of arguments passed to the program execution
@@ -51,10 +47,9 @@ void ctrl_c_handle(int opr __attribute__((unused)))
  *
  * Return: None
  */
-
-void data_initialize(shell_program *input, int argc, char *argv[], char **env)
+void inicialize_data(shell_program *input, int argc, char *argv[], char **env)
 {
-	int c = 0;
+	int i = 0;
 
 	input->program_name = argv[0];
 	input->input_line = NULL;
@@ -79,21 +74,20 @@ void data_initialize(shell_program *input, int argc, char *argv[], char **env)
 	input->env = malloc(sizeof(char *) * 50);
 	if (env)
 	{
-		for (; env[c]; c++)
+		for (; env[i]; i++)
 		{
-			input->env[c] = str_duplic(env[c]);
+			input->env[i] = str_duplicate(env[i]);
 		}
 	}
-	input->env[c] = NULL;
+	input->env[i] = NULL;
 	env = input->env;
 
 	input->alias_list = malloc(sizeof(char *) * 20);
-	for (c = 0; c < 20; c++)
+	for (i = 0; i < 20; i++)
 	{
-		input->alias_list[c] = NULL;
+		input->alias_list[i] = NULL;
 	}
 }
-
 /**
  * process_input - Performs operations with
  * a given prompt and shell program input
@@ -104,30 +98,30 @@ void data_initialize(shell_program *input, int argc, char *argv[], char **env)
  */
 void process_input(char *prompt, shell_program *input)
 {
-	int error = 0, string_len = 0;
+	int error_code = 0, string_len = 0;
 
-	while ((input->exec_counter)++)
+	while (++(input->exec_counter))
 	{
 		_print(prompt);
-		error = string_len = _getline(input);
+		error_code = string_len = _getline(input);
 
-		if (error == EOF)
+		if (error_code == EOF)
 		{
-			free_data(input);
-			exit(errno); /* if EOF is the first Char of string, exit */
+			free_all_data(input);
+			exit(errno); /* if EOF is the fisrt Char of string, exit*/
 		}
 		if (string_len >= 1)
 		{
 			expand_alias(input);
 			expand_variables(input);
-			custom_tokenize(input);
+			tokenize(input);
 			if (input->tokens[0])
 			{ /* if a text is given to prompt, execute */
-				error = execute(input);
-				if (error != 0)
-					_printerror(error, input);
+				error_code = execute(input);
+				if (error_code != 0)
+					_print_error(error_code, input);
 			}
-			free_data(input);
+			free_recurrent_data(input);
 		}
 	}
 }

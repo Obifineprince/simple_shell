@@ -32,18 +32,19 @@ typedef struct builtins {
     int (*function)(shell_program *input);
 } builtins;
 
-void data_initialize(shell_program *input, int argc, char *argv[], char **env);
+void inicialize_data(shell_program *input, int argc, char *argv[], char **env);
 void process_input(char *prompt, shell_program *input);
-void ctrl_c_handle(int opr);
+void handle_ctrl_c(int opr UNUSED);
+int main(int argc, char *argv[], char *env[]);
 
 int _getline(shell_program *input);
-int check_logic(char *command_arrays[], int i, char opera_arr[]);
+int check_logic_ops(char *array_commands[], int i, char array_operators[]);
 
 void expand_variables(shell_program *input);
 void expand_alias(shell_program *input);
 int buffer_add(char *buffer, char *str_to_add);
 
-void custom_tokenize(shell_program *input);
+void tokenize(shell_program *input);
 char *_strtok(char *line, char *delim);
 void **tokenize(shell_program *input);
 
@@ -51,12 +52,13 @@ int execute(shell_program *input);
 
 int builtins_list(shell_program *input);
 
-char **path(shell_program *input);
+int  check_file(char *full_path);
+char **tokenize_path(shell_program *input);
 int seek_program(shell_program *input);
 
-void free_pointers(char **directory);
-void free_recurrent(shell_program *input);
-void free_data(shell_program *input);
+void free_array_of_pointers(char **directory);
+void free_recurrent_data(shell_program *input);
+void free_all_data(shell_program *input);
 
 int builtin_exit(shell_program *input);
 int builtin_cd(shell_program *input);
@@ -75,20 +77,20 @@ void print_environ(shell_program *input);
 
 int _print(char *string);
 int _printe(char *string);
-int _printerror(int error, shell_program *input);
+int _print_error(int errorcode *input);
 
-int str_leng(char *str);
-char *str_duplic(char *str);
-int compare_str(char *str1, char *str2, int num_chars);
-char *concat_str(char *str1, char *str2);
-void rever_str(char *str);
+int str_length(char *string);
+char *str_duplicate(char *string);
+int str_compare(char *string1, char *string2, int number);
+char *str_concatenate(char *string1, char *string2);
+void str_reverse(char *string);
 
-void long_string(long numb, char *str, int base);
-int _atoi(char *p);
-int count_char(char *str, char *character);
+void long_to_string(long number, char *string, int base);
+int _atoi(char *s);
+int count_characters(char *string, char *character);
 
 int print_alias(shell_program *input, char *alias);
-char *get_alias(shell_program *input, char *alias);
+char *get_alias(shell_program *input, char *name);
 int set_alias(char *alias_string, shell_program *input);
 
 int interactive(shell_program *info);
