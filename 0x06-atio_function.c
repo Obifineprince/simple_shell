@@ -10,12 +10,11 @@
 
 int interactive(shell_program *info)
 {
-	if (isatty(STDIN_FILENO) && isatty(STDOUT_FILENO) && info != NULL)
-		return (1);
+	if (isatty(STDIN_FILENO) && info != NULL)
+		return 1;
 
-	return (0);
+	return 0;
 }
-
 /**
  * _delim - checks if a character is a delimiter
  * @c: the character to check
