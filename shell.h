@@ -46,7 +46,6 @@ int buffer_add(char *buffer, char *str_to_add);
 
 void tokenize(shell_program *input);
 char *_strtok(char *line, char *delim);
-void **tokenize(shell_program *input);
 
 int execute(shell_program *input);
 
@@ -77,7 +76,7 @@ void print_environ(shell_program *input);
 
 int _print(char *string);
 int _printe(char *string);
-int _print_error(int errorcode *input);
+int _print_error(int errorcode, shell_program *input);
 
 int str_length(char *string);
 char *str_duplicate(char *string);

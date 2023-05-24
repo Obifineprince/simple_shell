@@ -53,7 +53,7 @@ char *str_duplicate(char *string)
 	return (result);
 }
 /**
- * compare_strings - Compare two strings.
+ * str_compare - Compare two strings.
  *
  * @string1: The first string to compare.
  * @string2: The second string to compare.
@@ -62,7 +62,7 @@ char *str_duplicate(char *string)
  * Return: 1 if the strings are equal, 0 if the strings are different.
  */
 
-int compare_strings(char *string1, char *string2, int number)
+int str_compare(char *string1, char *string2, int number)
 {
 	int iterator;
 

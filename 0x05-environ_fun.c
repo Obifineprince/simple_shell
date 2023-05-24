@@ -1,11 +1,10 @@
 #include "shell.h"
-
 /**
- * env_get_key - retrieves the value of an environment variable
- * @key: the name of the environment variable
- * @input: struct for the program's data
- * Return: a pointer to the value of the variable,
- * or NULL if it doesn't exist
+ * get_env_value - Retrieves the value associated with an environment variable.
+ * @variable: The environment variable to look for.
+ * @data: Pointer to the program's data structure.
+ *
+ * Return: A pointer to the value of the variable, or NULL if the variable is not found.
  */
 char *env_get_key(char *key, shell_program *input)
 {
@@ -15,17 +14,6 @@ char *env_get_key(char *key, shell_program *input)
 	if (key == NULL || input->env == NULL)
 		return (NULL);
 
-<<<<<<< HEAD
-	/* Retrieves the length of the requested variable. */
-	length_of_key = str_length(key);
-
-	for (sp = 0; input->env[sp]; sp++)
-	{
-		if (str_compare(key, input->env[sp], length_of_key) &&
-			input->env[sp][length_of_key] == '=')
-		{
-			return (input->env[sp] + length_of_key + 1);
-=======
 	/* obtains the leng of the variable requested */
 	key_length = str_length(key);
 
@@ -35,7 +23,6 @@ char *env_get_key(char *key, shell_program *input)
 		 input->env[i][key_length] == '=')
 		{/* returns the value of the key NAME=  when find it*/
 			return (input->env[i] + key_length + 1);
->>>>>>> 50257b058fc8c88d070cdc981e3331de38958e86
 		}
 	}
 	/* returns NULL if did not find it */
@@ -51,7 +38,6 @@ char *env_get_key(char *key, shell_program *input)
  * Return: 1 if any parameter is NULL,
  * 2 if there is an error, or 0 if successful
  */
-
 int env_set_key(char *key, char *value, shell_program *input)
 {
 	int i, key_length = 0, is_new_key = 1;
@@ -60,31 +46,6 @@ int env_set_key(char *key, char *value, shell_program *input)
 	if (key == NULL || value == NULL || input->env == NULL)
 		return (1);
 
-<<<<<<< HEAD
-	/* Obtain the length of the requested variable */
-	length_of_key = str_length(key);
-
-	for (c = 0; input->env[c]; c++)
-	{
-		/* Iterate through the environ and check for a matching name */
-		if (str_compare(key, input->env[c], length_of_key) &&
-			input->env[c][length_of_key] == '=')
-		{
-			/* If existing */
-			new_key = 0;
-			/* Free the entire variable, which was newly created */
-			free(input->env[c]);
-			break;
-		}
-	}
-	/* Create a string in the format "key=value" */
-	input->env[c] = str_concatenate(str_duplicate(key), "=");
-	input->env[c] = str_concatenate(input->env[c], value);
-
-	if (new_key)
-	{
-		input->env[c + 1] = NULL;
-=======
 	/* obtains the leng of the variable requested */
 	key_length = str_length(key);
 
@@ -100,23 +61,22 @@ int env_set_key(char *key, char *value, shell_program *input)
 		}
 	}
 	/* make an string of the form key=value */
-	input->env[i] = str_concat(str_duplicate(key), "=");
-	input->env[i] = str_concat(input->env[i], value);
+	input->env[i] = str_concatenate(str_duplicate(key), "=");
+	input->env[i] = str_concatenate(input->env[i], value);
 
 	if (is_new_key)
 	{/* if the variable is new, it is create at end of actual list and we need*/
 	/* to put the NULL value in the next position */
 		input->env[i + 1] = NULL;
->>>>>>> 50257b058fc8c88d070cdc981e3331de38958e86
 	}
 	return (0);
 }
-
 /**
- * env_remove_key - remove a key from the environment
- * @key: the key to remove
- * @input: the structure of the program's data
- * Return: 1 if the key was removed, 0 if the key does not exist;
+ * env_remove_key - Remove a specified key from the environment.
+ * @key: The key to be removed.
+ * @input: Pointer to the program's data structure.
+ *
+ * Return: 1 if the key was removed, 0 if the key does not exist.
  */
 int env_remove_key(char *key, shell_program *input)
 {
@@ -126,23 +86,6 @@ int env_remove_key(char *key, shell_program *input)
 	if (key == NULL || input->env == NULL)
 		return (0);
 
-<<<<<<< HEAD
-	/* Retrieve the length of the requested variable */
-	length_of_key = str_length(key);
-
-	for (c = 0; input->env[c]; c++)
-	{
-/* Scan through the environ and look for matches with specified key */
-		if (str_compare(key, input->env[c], length_of_key) &&
-			input->env[c][length_of_key] == '=')
-		{
-		/* If the key already exists, remove it before setting */
-			free(input->env[c]);
-
-/* Shift the remaining keys one position down in the list */
-			c++;
-			for (; input->env[c]; c++)
-=======
 	/* obtains the leng of the variable requested */
 	key_length = str_length(key);
 
@@ -156,7 +99,6 @@ int env_remove_key(char *key, shell_program *input)
 			/* move the others keys one position down */
 			i++;
 			for (; input->env[i]; i++)
->>>>>>> 50257b058fc8c88d070cdc981e3331de38958e86
 			{
 				input->env[i - 1] = input->env[i];
 			}
@@ -168,13 +110,11 @@ int env_remove_key(char *key, shell_program *input)
 	return (0);
 }
 
-
 /**
- * print_environ - prints the current environ
- * @input: struct for the program's data
- * Return: nothing
+ * print_environment - Display the current environment.
+ * @data: Pointer to the program's data structure.
+ * Return: None.
  */
-
 void print_environ(shell_program *input)
 {
 	int j;
