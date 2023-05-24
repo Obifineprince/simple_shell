@@ -6,7 +6,7 @@
  *
  * Return: nothing, but sets errno.
  */
-void expand_variables(shell_program *input)
+void variables_expansion(shell_program *input)
 {
 	int i, j;
 	char line[BUFFER_SIZE] = {0}, expansion[BUFFER_SIZE] = {'\0'}, *temp;
@@ -56,7 +56,7 @@ void expand_variables(shell_program *input)
  *
  * Return: nothing, but sets errno.
  */
-void expand_alias(shell_program *input)
+void alias_expansion(shell_program *input)
 {
 	int i, j, was_expanded = 0;
 	char line[BUFFER_SIZE] = {0}, expansion[BUFFER_SIZE] = {'\0'}, *temp;

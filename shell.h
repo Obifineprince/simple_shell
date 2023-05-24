@@ -40,8 +40,8 @@ int main(int argc, char *argv[], char *env[]);
 int _getline(shell_program *input);
 int check_logic_ops(char *array_commands[], int i, char array_operators[]);
 
-void expand_variables(shell_program *input);
-void expand_alias(shell_program *input);
+void variables_expansion(shell_program *input);
+void alias_expansion(shell_program *input);
 int buffer_add(char *buffer, char *str_to_add);
 
 void tokenize(shell_program *input);
