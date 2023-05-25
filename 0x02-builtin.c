@@ -53,10 +53,11 @@ int builtin_env(shell_program *input)
  * @input: Pointer to the struct holding program data.
  * Return: Integer indicating success (zero) or failure (non-zero).
  */
+/*
 int builtin_set_env(shell_program *input)
 {
-	/* validate args */
-	if (input->tokens[1] == NULL || input->tokens[2] == NULL)
+	 validate args */
+/*	if (input->tokens[1] == NULL || input->tokens[2] == NULL)
 		return (0);
 	if (input->tokens[3] != NULL)
 	{
@@ -69,16 +70,16 @@ int builtin_set_env(shell_program *input)
 
 	return (0);
 }
-
+*/
 /**
  * builtin_unset_env - Function to perform a specific task in the shell.
  * @input: Pointer to the struct holding program data.
  * Return: Integer indicating success (zero) or failure (non-zero).
  */
+/*
 int builtin_unset_env(shell_program *input)
-{
-	/* validate args */
-	if (input->tokens[1] == NULL)
+{	 validate args */
+/*	if (input->tokens[1] == NULL)
 		return (0);
 	if (input->tokens[2] != NULL)
 	{
@@ -90,3 +91,4 @@ int builtin_unset_env(shell_program *input)
 
 	return (0);
 }
+*/

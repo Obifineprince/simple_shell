@@ -66,9 +66,9 @@ int builtin_help(shell_program *input);
 int builtin_alias(shell_program *input);
 
 int builtin_env(shell_program *input);
-int builtin_set_env(shell_program *input);
+/*int builtin_set_env(shell_program *input);
 int builtin_unset_env(shell_program *input);
-
+*/
 char *env_get_key(char *name, shell_program *input);
 int env_set_key(char *key, char *value, shell_program *input);
 int env_remove_key(char *key, shell_program *input);

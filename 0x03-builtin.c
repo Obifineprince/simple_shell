@@ -24,8 +24,8 @@ int builtins_list(shell_program *input)
 		{"cd", builtin_cd},
 		{"alias", builtin_alias},
 		{"env", builtin_env},
-		{"setenv", builtin_set_env},
-		{"unsetenv", builtin_unset_env},
+/*		{"setenv", builtin_set_env},
+		{"unsetenv", builtin_unset_env},*/
 		{NULL, NULL}
 	};
 
